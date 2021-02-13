@@ -32,6 +32,12 @@ Clone this repository.
 
 Simply launch the script `rofi-file-selector.sh`.
 
+You may also add a binding to some key in your i3 config:
+```
+## Applications // File search //  * ##
+bindsym $mod+asterisk exec  ~/.config/rofi/scripts/rofi-file-selector/rofi-file-selector.sh 
+```
+
 ## Configuration
 
 The configuration is defined with the help of several bash arrays in the
