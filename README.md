@@ -11,7 +11,7 @@ a file for which you know part of the name.
 
 - search in whole `$HOME` or in several set of directories.
 - choose the application use to open the file
-- Allow to set the default application for this file type (`Ctrl+`)
+- Allow to set the default application for this file type (`Ctrl + +`)
 - Cache the file list in order to allow for fast searching (except for the
   first time).
 
