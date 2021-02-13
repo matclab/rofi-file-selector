@@ -15,6 +15,11 @@ a file for which you know part of the name.
 - Cache the file list in order to allow for fast searching (except for the
   first time).
 
+## Requirements
+- bash >= 4.3 *(need to declare indirection variables)*.
+- python >= 3.7
+- PyGObject
+
 ## Installation
 
 Install the `PyGObject` package as described in the
