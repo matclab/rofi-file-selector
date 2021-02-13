@@ -18,7 +18,8 @@ a file for which you know part of the name.
 ## Requirements
 - bash >= 4.3 *(need to declare indirection variables)*.
 - python >= 3.7
-- PyGObject
+- PyGObject *(see next section)*
+- [fd, the fast find](https://github.com/sharkdp/fd)
 
 ## Installation
 
