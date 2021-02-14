@@ -20,6 +20,7 @@ a file for which you know part of the name.
 - python >= 3.7
 - PyGObject *(see next section)*
 - [fd, the fast find](https://github.com/sharkdp/fd)
+- [choose](https://github.com/theryangeary/choose), human-friendly and fast alternative to cut
 
 ## Installation
 
