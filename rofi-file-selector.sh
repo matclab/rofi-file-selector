@@ -9,6 +9,8 @@ SCRIPTPATH=$(realpath "$(dirname "$0")")
 
 MENU=(home)
 d_home=("$HOME")
+o_home=( )
+FD_OPTIONS=( )
 
 if [[ -f "$SCRIPTPATH/config.sh" ]]
 then
@@ -23,13 +25,14 @@ fi
 # declare dirs as being an indirection upon d_$res
 declare -n dirs="d_$res"
 declare -n files="f_$res"
+declare -n options="o_$res"
 
 { 
    if [[ -n "${files[*]}" ]]
    then
       printf -- '%s\n' "${files[@]}"
    fi
-   "$SCRIPTPATH/fd_cache.sh" --follow --hidden --no-ignore '.' "${dirs[@]}" 
+   "$SCRIPTPATH/fd_cache.sh" "${FD_OPTIONS[@]}" "${options[@]}" '.' "${dirs[@]}" 
 }\
    | { rofi -threads 0 -theme-str "#window { width: 900;}"  \
     -dmenu -sort -sorting-method fzf -i -p "Choose to open" \
