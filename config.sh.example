@@ -14,8 +14,7 @@ MENU=(personal work admin)
 # You may also define additional option to be passed to the `fd` tool in `o_X`
 # arrays. See also `FD_OPTIONS` for global options.
 #
-# The array items will be subj
-# ect to shell expansion.
+# The array items will be subject to shell expansion.
 
 d_personal=(~/Downloads ~/Documents ~/Models )
 o_personal=(--exclude ~/Documents/tmp)

@@ -43,6 +43,7 @@ bindsym $mod+asterisk exec  ~/.config/rofi/scripts/rofi-file-selector/rofi-file-
 
 The configuration is defined with the help of several bash arrays in the
 `config.sh` file. An example is given in the `config.sh.example` file:
+<!-- [$ config.sh](config.sh.example) as bash -->
 ```bash
 #!/bin/bash
 # MENU is the list of items that will be presented to the user
@@ -57,11 +58,18 @@ MENU=(personal work admin)
 # array of directories which will be search for file with `fd`.
 # You may also define `f_X` which is an array of file which will be added to
 # the rofi menu.
+# You may also define additional option to be passed to the `fd` tool in `o_X`
+# arrays. See also `FD_OPTIONS` for global options.
 #
-# The array items are subject to shell expansion.
+# The array items will be subject to shell expansion.
 
 d_personal=(~/Downloads ~/Documents ~/Models )
+o_personal=(--exclude ~/Documents/tmp)
 d_work=(~/work/projects/web-* ~/work/accounting/ ~/Downloads ~/Models)
+o_work=(--exclude '*.pyc' --no-ignore)
 f_work=(~/work/{til.md,account.ledger,time.ledger,log.md})
 d_admin=(~/admin ~/Downloads /var/log/)
+
+# Options pass to `fd` in addition to the one specified in `o_X` variables
+FD_OPTIONS=(--follow --no-ignore)
 ```
