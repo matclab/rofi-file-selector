@@ -4,13 +4,18 @@
 case $BASH_VERSION in ''|[123].*|4.[012]) rofi -e "ERROR: Bash 4.3+ needed" ; exit 1;; esac
 
 SCRIPTPATH=$(realpath "$(dirname "$0")")
+: "${XDG_CONFIG_HOME:="$HOME"/.config}"
+: "${CONFIG_DIR:="$XDG_CONFIG_HOME/rofi-file-selector/"}"
 
 MENU=(home)
 d_home=("$HOME")
 o_home=( )
 FD_OPTIONS=( )
 
-if [[ -f "$SCRIPTPATH/config.sh" ]]
+if [[ -f "$CONFIG_DIR/config.sh" ]]
+then
+   source "$CONFIG_DIR/config.sh"
+elif [[ -f "$SCRIPTPATH/config.sh" ]]
 then
    source "$SCRIPTPATH/config.sh"
 fi

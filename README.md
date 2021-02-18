@@ -42,7 +42,8 @@ bindsym $mod+asterisk exec  ~/.config/rofi/scripts/rofi-file-selector/rofi-file-
 ## Configuration
 
 The configuration is defined with the help of several bash arrays in the
-`config.sh` file. An example is given in the `config.sh.example` file:
+`config.sh` file (located either in the script directory or in
+`$XDG_CONFIG_HOME/rofi-file-selector`). An example is given in the `config.sh.example` file:
 <!-- [$ config.sh](config.sh.example) as bash -->
 ```bash
 #!/bin/bash
