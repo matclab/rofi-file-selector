@@ -34,7 +34,7 @@ declare -n options="o_$res"
    fi
    "$SCRIPTPATH/fd_cache.sh" "${FD_OPTIONS[@]}" "${options[@]}" '.' "${dirs[@]}" 
 }\
-   | { rofi -threads 0 -theme-str "#window { width: 900;}"  \
+   | { rofi -theme-str "#window { width: 900;}"  \
     -dmenu -sort -sorting-method fzf -i -p "Choose to open" \
     -mesg "<i>use Ctrl˖d to open parent directory</i>" \
     -kb-remove-char-forward "Delete" \
