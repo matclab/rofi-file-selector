@@ -4,7 +4,7 @@ set -o pipefail
 
 SCRIPTPATH=$(realpath "$(dirname "$0")")
 
-# Expect file + ROFI_RETV code
+# Expect two args :  file and  ROFI_RETV code
 echo "$@"
 
 if [[ "$#" -ge 2 ]]
