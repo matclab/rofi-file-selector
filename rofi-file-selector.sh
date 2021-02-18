@@ -1,6 +1,4 @@
 #!/usr/bin/env bash 
-set -e
-set -o pipefail
 
 # Check version of bash for variable indirection 
 case $BASH_VERSION in ''|[123].*|4.[012]) rofi -e "ERROR: Bash 4.3+ needed" ; exit 1;; esac
