@@ -1,0 +1,9 @@
+image:
+   name: registry.gitlab.com/matclab/rofi-file-selector/rfs-test:0.1
+
+test:
+   script:
+      - bats --formatter junit tests
+   artifacts:
+      reports:
+         junit: TestReport*.xml

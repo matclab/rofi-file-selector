@@ -1,6 +1,7 @@
 INSTALL_DIR ?= ~/.config/rofi/scripts/rofi-file-selector
 SHELL=bash
 FILES=chooseexe.sh fd_cache.sh mimeapps mimeapps.sh config.sh.example
+IMG_VERSION=0.1
 
 .DEFAULT_GOAL := help
 .PHONY: help
@@ -24,6 +25,10 @@ install: ## Install to INSTALL_DIR variable (make INSTALL_DIR=/tmp)
 test: ## Run test (use bats)
 	bats tests
 
+.PHONY: docker
+docker:  ## Build and push docker CI image
+	docker build -t registry.gitlab.com/matclab/rofi-file-selector/rfs-test:${IMG_VERSION} docker \
+	&& docker push registry.gitlab.com/matclab/rofi-file-selector/rfs-test:${IMG_VERSION}
 
 
 
