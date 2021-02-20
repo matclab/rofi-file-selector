@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
-load bats-support/load.bash
-load bats-assert/load.bash
+load bats-support/load
+load bats-assert/load
 
 
 function setup() {
