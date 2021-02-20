@@ -20,6 +20,9 @@ install: ## Install to INSTALL_DIR variable (make INSTALL_DIR=/tmp)
 	mkdir -p ${INSTALL_DIR}
 	cp ${FILES} ${INSTALL_DIR}
 
+.PHONY: test
+test: ## Run test (use bats)
+	bats tests
 
 
 
