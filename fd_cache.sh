@@ -1,6 +1,7 @@
-#!/bin/bash
+#!/bin/bash 
 
-CACHEDIR="$HOME"/.cache/fd_cache
+: "${XDG_CACHE_HOME:="$HOME/.cache"}"
+: "${CACHEDIR:="$XDG_CACHE_HOME/.cache/fd_cache"}"
 
 [[ -d "$CACHEDIR" ]] || mkdir -p "$CACHEDIR"
 
