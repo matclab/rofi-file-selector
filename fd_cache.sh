@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/usr/bin/env bash 
 
 : "${XDG_CACHE_HOME:="$HOME/.cache"}"
 : "${CACHEDIR:="$XDG_CACHE_HOME/.cache/fd_cache"}"
