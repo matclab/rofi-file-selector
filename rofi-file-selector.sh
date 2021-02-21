@@ -1,11 +1,14 @@
 #!/usr/bin/env bash 
-
 # Check version of bash for variable indirection 
 case $BASH_VERSION in ''|[123].*|4.[012]) rofi -e "ERROR: Bash 4.3+ needed" ; exit 1;; esac
 
 SCRIPTPATH=$(realpath "$(dirname "$0")")
 : "${XDG_CONFIG_HOME:="$HOME"/.config}"
 : "${CONFIG_DIR:="$XDG_CONFIG_HOME/rofi-file-selector/"}"
+
+# To enable mocking in test
+: "${_ROFI:=rofi}"
+: "${_CHOOSEEXE:="$SCRIPTPATH/chooseexe.sh"}"
 
 MENU=(home)
 d_home=("$HOME")
@@ -22,7 +25,7 @@ fi
 
 if [[ ${#MENU[@]} -gt 1 ]]
 then
-   res=$(printf "%s\n" "${MENU[@]}" | rofi -dmenu)
+   res=$(printf "%s\n" "${MENU[@]}" | "$_ROFI" -dmenu)
 fi
 
 # declare dirs as being an indirection upon d_$res
@@ -37,11 +40,11 @@ declare -n options="o_$res"
    fi
    "$SCRIPTPATH/fd_cache.sh" "${FD_OPTIONS[@]}" "${options[@]}" '.' "${dirs[@]}" 
 }\
-   | { rofi -theme-str "#window { width: 900;}"  \
+   | { "$_ROFI" -theme-str "#window { width: 900;}"  \
     -dmenu -sort -sorting-method fzf -i -p "Choose to open" \
     -mesg "<i>use Ctrl˖d to open parent directory</i>" \
     -kb-remove-char-forward "Delete" \
     -kb-custom-1 "Ctrl+d" \
-    -keep-right; echo " $?" ; } | xargs  -d $'\n' "$SCRIPTPATH/chooseexe.sh" 
+    -keep-right; echo " $?" ; } | xargs  -d $'\n' "$_CHOOSEEXE"
 
 

@@ -4,6 +4,9 @@ set -o pipefail
 
 SCRIPTPATH=$(realpath "$(dirname "$0")")
 
+# To enable mocking in test
+: "${_ROFI:=rofi}"
+
 # Expect two args :  file and  ROFI_RETV code
 echo "$@"
 
@@ -12,8 +15,8 @@ then
    ROFI_RETV="$2"
    if [[ $ROFI_RETV -eq 10 ]]
    then
-      rofi -show mimeopen -kb-custom-1 "Ctrl+plus" -modi "mimeopen:$SCRIPTPATH/mimeapps.sh \"$(dirname "$1")\" " 
+      "$_ROFI" -show mimeopen -kb-custom-1 "Ctrl+plus" -modi "mimeopen:$SCRIPTPATH/mimeapps.sh \"$(dirname "$1")\" " 
    else
-      rofi -show mimeopen -kb-custom-1 "Ctrl+plus" -modi "mimeopen:$SCRIPTPATH/mimeapps.sh \"$1\" " 
+      "$_ROFI" -show mimeopen -kb-custom-1 "Ctrl+plus" -modi "mimeopen:$SCRIPTPATH/mimeapps.sh \"$1\" " 
    fi
 fi
