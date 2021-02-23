@@ -11,7 +11,7 @@ RUN cd /tmp \
  && cp fd*linux-musl/fd /usr/bin
 
 FROM ffurrer/bats
-RUN apk add --no-cache coreutils
+RUN apk add --no-cache coreutils bash findutils
 
 COPY --from=BUILD /usr/bin/choose /usr/bin/fd /usr/bin/
 #COPY --from=BUILD /usr/bin/fd /usr/bin/fd
