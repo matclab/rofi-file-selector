@@ -22,7 +22,7 @@ SRC="$BATS_TEST_DIRNAME/.."
 function default_config() {
    cat > /tmp/config.sh <<EOT
 MENU=(home)
-d_home=($BATS_TMPDIR/$BATS_TEST_NAME)"
+d_home=("$BATS_TMPDIR/$BATS_TEST_NAME")
 EOT
 }
 
