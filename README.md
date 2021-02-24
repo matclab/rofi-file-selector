@@ -16,6 +16,7 @@ a file for which you know part of the name.
   first time).
 
 ## Requirements
+- rofi >= 1.6.0
 - bash >= 4.3 *(need to declare indirection variables)*.
 - python >= 3.7
 - PyGObject *(see next section)*
