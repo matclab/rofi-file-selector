@@ -1,7 +1,7 @@
 #!/usr/bin/env bash 
 
 : "${XDG_CACHE_HOME:="$HOME/.cache"}"
-: "${CACHEDIR:="$XDG_CACHE_HOME/.cache/fd_cache"}"
+: "${CACHEDIR:="$XDG_CACHE_HOME/fd_cache"}"
 
 [[ -d "$CACHEDIR" ]] || mkdir -p "$CACHEDIR"
 
