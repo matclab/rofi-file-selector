@@ -26,6 +26,10 @@ fi
 if [[ ${#MENU[@]} -gt 1 ]]
 then
    res=$(printf "%s\n" "${MENU[@]}" | "$_ROFI" -dmenu)
+   if [[ "$res" == "/" ]]
+   then
+      exit 1
+   fi
 fi
 
 # declare dirs as being an indirection upon d_$res
