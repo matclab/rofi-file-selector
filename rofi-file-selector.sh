@@ -26,10 +26,6 @@ fi
 if [[ ${#MENU[@]} -gt 1 ]]
 then
    res=$(printf "%s\n" "${MENU[@]}" | "$_ROFI" -dmenu)
-   if [[ "$res" == "/" ]]
-   then
-      exit 1
-   fi
 fi
 
 # declare dirs as being an indirection upon d_$res
@@ -42,7 +38,10 @@ declare -n options="o_$res"
    then
       printf -- '%s\n' "${files[@]}"
    fi
-   "$SCRIPTPATH/fd_cache.sh" "${FD_OPTIONS[@]}" "${options[@]}" '.' "${dirs[@]}" 
+   if [[ -n $dirs ]]
+   then
+      "$SCRIPTPATH/fd_cache.sh" "${FD_OPTIONS[@]}" "${options[@]}" '.' "${dirs[@]}" 
+   fi
 }\
    | { "$_ROFI" -theme-str "#window { width: 900;}"  \
     -dmenu -sort -sorting-method fzf -i -p "Choose to open" \
