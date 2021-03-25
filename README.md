@@ -22,6 +22,7 @@ a file for which you know part of the name.
 - PyGObject *(see next section)*
 - [fd, the fast find](https://github.com/sharkdp/fd)
 - [choose](https://github.com/theryangeary/choose), human-friendly and fast alternative to cut
+- `xsel` in order to copy the path to the clipboard with `ctrl+c`
 
 ## Installation
 

@@ -16,6 +16,9 @@ then
    if [[ $ROFI_RETV -eq 10 ]]
    then
       "$_ROFI" -show mimeopen -kb-custom-1 "Ctrl+plus" -modi "mimeopen:$SCRIPTPATH/mimeapps.sh \"$(dirname "$1")\" " 
+   elif [[ $ROFI_RETV -eq 11 ]]
+   then
+      echo "$1" | xsel -i -b; xsel -b | xsel -p -i; xsel -k
    else
       "$_ROFI" -show mimeopen -kb-custom-1 "Ctrl+plus" -modi "mimeopen:$SCRIPTPATH/mimeapps.sh \"$1\" " 
    fi
