@@ -1,7 +1,7 @@
 INSTALL_DIR ?= ~/.config/rofi/scripts/rofi-file-selector
 SHELL=bash
 FILES=chooseexe.sh fd_cache.sh mimeapps mimeapps.sh config.sh.example
-IMG_VERSION=0.2
+IMG_VERSION=0.3
 
 .DEFAULT_GOAL := help
 .PHONY: help

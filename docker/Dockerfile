@@ -14,6 +14,7 @@ FROM ffurrer/bats
 RUN apk add --no-cache coreutils bash findutils
 
 COPY --from=BUILD /usr/bin/choose /usr/bin/fd /usr/bin/
+RUN cp /usr/bin/yes /usr/bin/xset # To allow dependency check to succeed
 #COPY --from=BUILD /usr/bin/fd /usr/bin/fd
 
 ENTRYPOINT [ ]
