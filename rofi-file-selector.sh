@@ -2,6 +2,7 @@
 # Check version of bash for variable indirection 
 case $BASH_VERSION in ''|[123].*|4.[012]) rofi -e "ERROR: Bash 4.3+ needed" ; exit 1;; esac
 
+# Check for required executables
 command -v fd >/dev/null 2>&1 || { echo >&2 "I require 'fd' but it's not installed.  Aborting."; exit 1; }
 command -v choose >/dev/null 2>&1 || { echo >&2 "I require 'choose' but it's not installed.  Aborting."; exit 1; }
 command -v xsel >/dev/null 2>&1 || { echo >&2 "I require 'xsel' but it's not installed.  Aborting."; exit 1; }

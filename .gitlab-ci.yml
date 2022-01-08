@@ -6,7 +6,8 @@ image:
 
 test:
    script:
-      - bats --formatter junit tests
+      - set -euo pipefail
+      - "bats --formatter junit tests | tee  TestReport.xml"
    artifacts:
       reports:
          junit: TestReport*.xml
