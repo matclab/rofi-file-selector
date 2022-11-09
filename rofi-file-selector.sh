@@ -54,6 +54,7 @@ declare -n options="o_$res"
     -dmenu -sort -sorting-method fzf -i -p "Choose to open" \
     -mesg "<i>use Ctrl˖d to open parent directory, Ctrl+c to copy filename</i>" \
     -kb-remove-char-forward "Delete" \
+    -kb-secondary-copy "" \
     -kb-custom-1 "Ctrl+d" \
     -kb-custom-2 "Ctrl+c" \
     -keep-right; echo " $?" ; } | xargs  -d $'\n' "$_CHOOSEEXE"
