@@ -25,9 +25,9 @@ SRC="$BATS_TEST_DIRNAME/.."
   #run ls .
   assert_success
   assert_output - <<-EOT
-./c
-./b
-./a
+c
+b
+a
 EOT
 }
 
@@ -39,12 +39,12 @@ EOT
   run "$SRC/fd_cache.sh" '.'  . 
   assert_success
   assert_output - <<-EOT
-./c
-./b
-./a
-./a
-./c
-./b
+c
+b
+a
+a
+c
+b
 EOT
 }
 
@@ -56,12 +56,12 @@ EOT
   run "$SRC/fd_cache.sh" '.'  . 
   assert_success
   assert_output - <<-EOT
-./c
-./b
-./a
-./x
-./c
-./b
-./a
+c
+b
+a
+x
+c
+b
+a
 EOT
 }
