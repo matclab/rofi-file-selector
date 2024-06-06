@@ -1,3 +1,5 @@
+[![](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/matclab/donate)
+
 # Rofi file selector
 
 This is a set of script and python program that allow to quickly find and open
