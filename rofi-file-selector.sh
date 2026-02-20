@@ -1,5 +1,7 @@
-#!/usr/bin/env bash 
-# Check version of bash for variable indirection 
+#!/usr/bin/env bash
+set -e
+set -o pipefail
+# Check version of bash for variable indirection
 case $BASH_VERSION in ''|[123].*|4.[012]) rofi -e "ERROR: Bash 4.3+ needed" ; exit 1;; esac
 
 # Check for required executables
@@ -50,13 +52,13 @@ declare -n options="o_$res"
       "$SCRIPTPATH/fd_cache.sh" "${FD_OPTIONS[@]}" "${options[@]}" '.' "${dirs[@]}" 
    fi
 }\
-   | { "$_ROFI" -theme-str "#window { width: 900;}"  \
+   | { retv=0; "$_ROFI" -theme-str "#window { width: 900;}"  \
     -dmenu -sort -sorting-method fzf -i -p "Choose to open" \
     -mesg "<i>use Ctrl˖d to open parent directory, Ctrl+c to copy filename</i>" \
     -kb-remove-char-forward "Delete" \
     -kb-secondary-copy "" \
     -kb-custom-1 "Ctrl+d" \
     -kb-custom-2 "Ctrl+c" \
-    -keep-right; echo " $?" ; } | xargs  -d $'\n' "$_CHOOSEEXE"
+    -keep-right || retv=$?; echo " $retv" ; } | xargs  -d $'\n' "$_CHOOSEEXE"
 
 

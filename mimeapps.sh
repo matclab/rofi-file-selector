@@ -12,7 +12,6 @@
 ###   --mime-type|m  specify the file mime-type
 ###   -h             Show this message.
 set -e
-set -o errexit
 set -o nounset
 set -o pipefail
 if [[ "${TRACE-0}" == "1" ]]; then
@@ -23,10 +22,6 @@ help() {
 }
 
 SCRIPTPATH=$(realpath "$(dirname "$0")")
-
-help() {
-   sed -rn 's/^### ?//;T;p' "$0"
-}
 
 TEMP=$(getopt -o 'hm:' --long 'help,mime-type:' -n 'ropen' -- "$@")
 
@@ -39,7 +34,6 @@ fi
 eval set -- "$TEMP"
 unset TEMP
 
-keep=""
 mimetype=""
 while true; do
    case "$1" in
