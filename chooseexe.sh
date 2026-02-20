@@ -1,14 +1,35 @@
-#!/usr/bin/env bash 
+#!/usr/bin/env bash
+###
+### chooseexe.sh — Dispatch action on the selected file
+###
+### Called by rofi-file-selector.sh after the user selects a file.
+### Routes to different actions based on the rofi return code.
+###
+### Usage:
+###   chooseexe.sh <file> <rofi_retv>
+###
+### Arguments:
+###   <file>        Full path of the selected file
+###   <rofi_retv>   Rofi return code (0=open, 10=Ctrl+d, 11=Ctrl+c)
+###
+### Actions:
+###   retv=0    Open file with mimeapps (application chooser)
+###   retv=10   Open parent directory with mimeapps
+###   retv=11   Copy file path to clipboard (via xsel)
+###   <2 args   Do nothing
+###
+### Environment:
+###   _ROFI    Override rofi binary (for testing)
+###   _XSEL    Override xsel binary (for testing)
+###
 set -e
 set -o pipefail
 
 SCRIPTPATH=$(realpath "$(dirname "$0")")
 
-# To enable mocking in test
 : "${_ROFI:=rofi}"
 : "${_XSEL:=xsel}"
 
-# Expect two args :  file and  ROFI_RETV code
 echo "$@"
 
 if [[ "$#" -ge 2 ]]

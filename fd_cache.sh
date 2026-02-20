@@ -1,4 +1,24 @@
 #!/usr/bin/env bash
+###
+### fd_cache.sh — Cached file listing using fd
+###
+### Runs fd with the given arguments and caches the results. On subsequent
+### calls with the same arguments, recently modified files are prepended to
+### the cached list for immediate display. A full cache rebuild runs in the
+### background when the cache is older than one day.
+###
+### Usage:
+###   fd_cache.sh [fd_options...] <pattern> <directories...>
+###
+### All arguments are forwarded to fd. The cache key is the MD5 hash of
+### the full argument string.
+###
+### Output:
+###   File paths, one per line, most recently modified first.
+###
+### Environment:
+###   CACHEDIR   Override cache directory (default: $XDG_CACHE_HOME/fd_cache)
+###
 set -e
 
 : "${XDG_CACHE_HOME:="$HOME/.cache"}"

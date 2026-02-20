@@ -1,4 +1,24 @@
 #!/usr/bin/env bash
+###
+### rofi-file-selector.sh — Find and open files using rofi
+###
+### Entry point for rofi-file-selector. Loads configuration, presents a
+### category menu if multiple MENU items are defined, then uses fd_cache.sh
+### to list files and rofi to let the user pick one. The selected file and
+### the rofi return code are passed to chooseexe.sh for action dispatch.
+###
+### Usage:
+###   rofi-file-selector.sh
+###
+### Configuration:
+###   Reads config.sh from $XDG_CONFIG_HOME/rofi-file-selector/ or $SCRIPTPATH.
+###   See config.sh.example for available variables (MENU, d_X, f_X, o_X, FD_OPTIONS).
+###
+### Environment:
+###   CONFIG_DIR   Override config directory path
+###   _ROFI        Override rofi binary (for testing)
+###   _CHOOSEEXE   Override chooseexe.sh path (for testing)
+###
 set -e
 set -o pipefail
 # Check version of bash for variable indirection
