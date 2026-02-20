@@ -22,8 +22,8 @@ SRC="$BATS_TEST_DIRNAME/.."
 @test 'fd_cache first run is ok' {
   touch a ;touch  b ; touch c
   run "$SRC/fd_cache.sh" '.'  .
-  #run ls .
   assert_success
+  output=$(echo "$output" | sed 's|^\./||')
   assert_output - <<-EOT
 c
 b
@@ -33,11 +33,12 @@ EOT
 
 @test 'fd_cache order is updated' {
   touch a ;touch  b ; touch c
-  run "$SRC/fd_cache.sh" '.'  .  
+  run "$SRC/fd_cache.sh" '.'  .
   sleep 1
   touch a
-  run "$SRC/fd_cache.sh" '.'  . 
+  run "$SRC/fd_cache.sh" '.'  .
   assert_success
+  output=$(echo "$output" | sed 's|^\./||')
   assert_output - <<-EOT
 c
 b
@@ -55,6 +56,7 @@ EOT
   touch x
   run "$SRC/fd_cache.sh" '.'  .
   assert_success
+  output=$(echo "$output" | sed 's|^\./||')
   assert_output - <<-EOT
 c
 b
