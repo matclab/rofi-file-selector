@@ -66,3 +66,79 @@ EOT
    refute_line --partial "NAME" # No filename
 }
 
+@test 'chooseexe opens file with full path on default return' {
+   rofi="$(mock_create)"
+
+   _ROFI="$rofi" run "$SRC/chooseexe.sh" DIR/NAME 0
+   run echo "$(mock_get_call_args "$rofi")"
+   assert_line --partial "DIR/NAME"
+}
+
+@test 'chooseexe copies to clipboard on Ctrl+c' {
+   fake_bin="$BATS_TMPDIR/$BATS_TEST_NAME/bin"
+   mkdir -p "$fake_bin"
+   cat > "$fake_bin/xsel" <<'SCRIPT'
+#!/usr/bin/env bash
+echo "xsel called with: $*" >> "$XSEL_LOG"
+SCRIPT
+   chmod +x "$fake_bin/xsel"
+
+   export XSEL_LOG="$BATS_TMPDIR/$BATS_TEST_NAME/xsel.log"
+   PATH="$fake_bin:$PATH" run "$SRC/chooseexe.sh" /some/file 11
+   assert_success
+   [[ -f "$XSEL_LOG" ]]
+}
+
+@test 'chooseexe does nothing with less than 2 args' {
+   rofi="$(mock_create)"
+
+   _ROFI="$rofi" run "$SRC/chooseexe.sh" SINGLEARG
+   assert_equal "$(mock_get_call_num "$rofi")" "0"
+}
+
+@test 'rofi-file-selector with multiple MENU items calls rofi for menu selection' {
+   mkdir -p "$BATS_TMPDIR/$BATS_TEST_NAME/alpha_dir"
+   mkdir -p "$BATS_TMPDIR/$BATS_TEST_NAME/beta_dir"
+   touch "$BATS_TMPDIR/$BATS_TEST_NAME/alpha_dir/file1"
+
+   config_dir="$BATS_TMPDIR/$BATS_TEST_NAME/config"
+   mkdir -p "$config_dir"
+   cat > "$config_dir/config.sh" <<EOT
+MENU=(alpha beta)
+d_alpha=("$BATS_TMPDIR/$BATS_TEST_NAME/alpha_dir")
+d_beta=("$BATS_TMPDIR/$BATS_TEST_NAME/beta_dir")
+EOT
+
+   rofi="$(mock_create)"
+   # First call: menu selection returns "alpha"
+   mock_set_output "$rofi" "alpha"
+   # Second call: file selection returns a file
+   mock_set_output "$rofi" "file1" 2
+
+   chooseexe="$(mock_create)"
+
+   _CHOOSEEXE="$chooseexe" _ROFI="$rofi" CONFIG_DIR="$config_dir" \
+      run "$SRC/rofi-file-selector.sh"
+   assert_equal "$(mock_get_call_num "$rofi")" "2"
+}
+
+@test 'rofi-file-selector includes f_X files' {
+   config_dir="$BATS_TMPDIR/$BATS_TEST_NAME/config"
+   mkdir -p "$config_dir"
+   cat > "$config_dir/config.sh" <<EOT
+MENU=(test)
+d_test=()
+f_test=(/tmp/fileA /tmp/fileB)
+EOT
+
+   rofi="$(mock_create)"
+   mock_set_output "$rofi" "/tmp/fileA"
+
+   chooseexe="$(mock_create)"
+
+   _CHOOSEEXE="$chooseexe" _ROFI="$rofi" CONFIG_DIR="$config_dir" \
+      run "$SRC/rofi-file-selector.sh"
+   assert_equal "$(mock_get_call_num "$chooseexe")" "1"
+   [[ "$(mock_get_call_args "$chooseexe")" == *"/tmp/fileA"* ]]
+}
+
