@@ -63,9 +63,10 @@ def main(argv=None):
     rofi_retv = int(os.getenv("ROFI_RETV", 0))
 
 
-    if rofi_retv == 2: # Custom entry argv[2] 
+    if rofi_retv == 2: # Custom entry argv[2]
         # If user provide a custom entry, we launch the program in a terminal
-        subprocess.Popen(["kitty", sys.argv[2], filename])
+        terminal = os.getenv("TERMINAL", "kitty")
+        subprocess.Popen([terminal, sys.argv[2], filename])
         sys.exit(0)
 
     apps = dict()

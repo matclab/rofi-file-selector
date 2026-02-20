@@ -59,6 +59,8 @@ declare -n options="o_$res"
     -kb-secondary-copy "" \
     -kb-custom-1 "Ctrl+d" \
     -kb-custom-2 "Ctrl+c" \
-    -keep-right || retv=$?; echo " $retv" ; } | xargs  -d $'\n' "$_CHOOSEEXE"
+    -keep-right || retv=$?; \
+    # Append rofi exit code so chooseexe knows which action was requested
+    echo " $retv" ; } | xargs  -d $'\n' "$_CHOOSEEXE"
 
 

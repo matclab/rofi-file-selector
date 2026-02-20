@@ -75,18 +75,11 @@ EOT
 }
 
 @test 'chooseexe copies to clipboard on Ctrl+c' {
-   fake_bin="$BATS_TMPDIR/$BATS_TEST_NAME/bin"
-   mkdir -p "$fake_bin"
-   cat > "$fake_bin/xsel" <<'SCRIPT'
-#!/usr/bin/env bash
-echo "xsel called with: $*" >> "$XSEL_LOG"
-SCRIPT
-   chmod +x "$fake_bin/xsel"
+   xsel="$(mock_create)"
 
-   export XSEL_LOG="$BATS_TMPDIR/$BATS_TEST_NAME/xsel.log"
-   PATH="$fake_bin:$PATH" run "$SRC/chooseexe.sh" /some/file 11
+   _XSEL="$xsel" run "$SRC/chooseexe.sh" /some/file 11
    assert_success
-   [[ -f "$XSEL_LOG" ]]
+   [[ "$(mock_get_call_num "$xsel")" -ge 1 ]]
 }
 
 @test 'chooseexe does nothing with less than 2 args' {

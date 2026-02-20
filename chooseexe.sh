@@ -6,6 +6,7 @@ SCRIPTPATH=$(realpath "$(dirname "$0")")
 
 # To enable mocking in test
 : "${_ROFI:=rofi}"
+: "${_XSEL:=xsel}"
 
 # Expect two args :  file and  ROFI_RETV code
 echo "$@"
@@ -13,13 +14,13 @@ echo "$@"
 if [[ "$#" -ge 2 ]]
 then
    ROFI_RETV="$2"
-   if [[ $ROFI_RETV -eq 10 ]]
+   if [[ $ROFI_RETV -eq 10 ]] # Ctrl+d: open parent directory
    then
-      "$_ROFI" -show mimeopen -kb-custom-1 "Ctrl+plus" -modi "mimeopen:$SCRIPTPATH/mimeapps.sh \"$(dirname "$1")\" " 
-   elif [[ $ROFI_RETV -eq 11 ]]
+      "$_ROFI" -show mimeopen -kb-custom-1 "Ctrl+plus" -modi "mimeopen:$SCRIPTPATH/mimeapps.sh \"$(dirname "$1")\" "
+   elif [[ $ROFI_RETV -eq 11 ]] # Ctrl+c: copy filename to clipboard
    then
-      echo "$1" | xsel -i -b; xsel -b | xsel -p -i; xsel -k
-   else
-      "$_ROFI" -show mimeopen -kb-custom-1 "Ctrl+plus" -modi "mimeopen:$SCRIPTPATH/mimeapps.sh \"$1\" " 
+      echo "$1" | "$_XSEL" -i -b; "$_XSEL" -b | "$_XSEL" -p -i; "$_XSEL" -k
+   else # Default: open file with mimeapps
+      "$_ROFI" -show mimeopen -kb-custom-1 "Ctrl+plus" -modi "mimeopen:$SCRIPTPATH/mimeapps.sh \"$1\" "
    fi
 fi

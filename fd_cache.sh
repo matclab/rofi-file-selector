@@ -20,6 +20,7 @@ then
    # Cache exist, append newer file to cache
    mv "$CACHE" "$CACHE".old
 
+   # Output old cache in background for immediate display while new results are computed
    ( cat "$CACHE".old  | choose 1: ) &
    { fd -0 --change-newer-than "$old_date" "$@" | xargs -0 stat -c "%Y %n" 2>/dev/null | sort -r -n ; wait ; } | tee "$CACHE" | choose 1:
    if  [[ $epoch -gt $oldepoch_plus_day ]]
